@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="img/favicon.png" sizes="32x32">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Дота 2 Рандомный герой">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Рандомный герой и артефакты Дота 2</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" crossorigin="anonymous">
+
+    <style>
+        body { padding-top: 70px; background-color: #1f232a; color: #fff; }
+        .content { text-align: center; }
+        .item { display: inline-block; margin: 10px; }
+        .item img { width: 64px; height: 64px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="content">
+        <h1>Рандомный герой и артефакты из Доты 2</h1>
+        
+        <!-- Кнопка для рандомного героя -->
+        <p>Нажми на кнопку и тебе зарандомится герой!</p>
+        <button type="button" class="btn btn-primary btn-lg" onclick="displayHero()">Пик героя</button>
+        <div id="hero-wrapper" style="display:none;">
+            <img id="hero-img" src alt="Hero">
+            <p id="hero-name"></p>
+        </div>
+
+        <!-- Кнопка для рандомных артефактов -->
+        <p>Нажми на кнопку и получи 6 случайных артефактов!</p>
+        <button type="button" class="btn btn-warning btn-lg" onclick="displayItems()">Случайные артефакты</button>
+        <div id="items-container" class="content"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<script>
+    function displayHero() {
+        let herolist = ["Abaddon", "Alchemist", "Ancient Apparition", "Anti-Mage", "Arc Warden", "Axe", "Bane"];
+        let hero = herolist[Math.floor(Math.random() * herolist.length)];
+        let hero_temp = hero.toLowerCase().replace(/ /g, "_");
+        $("#hero-img").attr("src", `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${hero_temp}.png`);
+        $("#hero-name").text(hero);
+        $('#hero-wrapper').show();
+    }
+
+    const items = [
+        { name: 'Abyssal Blade', img: 'path/to/abyssal_blade.png' },
+        { name: 'Aghanim\'s Scepter', img: 'path/to/aghs_scepter.png' },
+        // Добавь остальные артефакты с ссылками на их изображения
+    ];
+
+    function displayItems() {
+        const selectedItems = [];
+        while (selectedItems.length < 6) {
+            const randomIndex = Math.floor(Math.random() * items.length);
+            const item = items[randomIndex];
+            if (!selectedItems.includes(item)) {
+                selectedItems.push(item);
+            }
+        }
+        
+        const container = document.getElementById('items-container');
+        container.innerHTML = selectedItems.map(item => 
+            `<div class="item">
+                <img src="${item.img}" alt="${item.name}" />
+                <p>${item.name}</p>
+            </div>`
+        ).join('');
+    }
+</script>
+
+</body>
+</html>
