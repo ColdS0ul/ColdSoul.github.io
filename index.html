@@ -2,105 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="img/favicon.png" sizes="32x32">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Дота 2 Рандомный герой">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Рандомный герой и артефакты Дота 2</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" crossorigin="anonymous">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рандомные Артефакты Дота 2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <style>
-        body { padding-top: 70px; background-color: #1f232a; color: #fff; }
-        .content { text-align: center; }
-        .item { display: inline-block; margin: 10px; }
-        .item img { width: 64px; height: 64px; }
+        .artifact-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .artifact {
+            text-align: center;
+            margin: 10px;
+        }
+        .artifact img {
+            width: 64px;
+            height: 64px;
+        }
+        #artifact-button {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="content">
-        <h1>Рандомный герой и артефакты из Доты 2</h1>
+    <div class="container">
+        <h1 class="text-center">Рандомные Артефакты из Доты 2</h1>
+        <p class="text-center">Нажми на кнопку, чтобы получить 6 случайных артефактов!</p>
+        <button id="artifact-button" class="btn btn-primary btn-lg" onclick="displayArtifacts()">Пик артефактов</button>
         
-        <!-- Кнопка для рандомного героя -->
-        <p>Нажми на кнопку и тебе зарандомится герой!</p>
-        <button type="button" class="btn btn-primary btn-lg" onclick="displayHero()">Пик героя</button>
-        <div id="hero-wrapper" style="display:none;">
-            <img id="hero-img" src alt="Hero">
-            <p id="hero-name"></p>
+        <div id="artifact-container" class="artifact-container">
+            <!-- Сюда будут добавляться артефакты -->
         </div>
-
-        <!-- Кнопка для рандомных артефактов -->
-        <p>Нажми на кнопку и получи 6 случайных артефактов!</p>
-        <button type="button" class="btn btn-warning btn-lg" onclick="displayItems()">Случайные артефакты</button>
-        <div id="items-container" class="content"></div>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script>
+        // Массив с артефактами и ссылками на их изображения
+        const items = [
+            { name: 'Aghanim\'s Scepter', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aghanims_scepter.png' },
+            { name: 'Black King Bar', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png' },
+            { name: 'Butterfly', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/butterfly.png' },
+            { name: 'Desolator', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/desolator.png' },
+            { name: 'Divine Rapier', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/divine_rapier.png' },
+            { name: 'Abyssal Blade', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/abyssal_blade.png' },
+            { name: 'Manta Style', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta_style.png' },
+            { name: 'Radiance', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/radiance.png' },
+            { name: 'Sange and Yasha', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange_and_yasha.png' },
+            { name: 'Heart of Tarrasque', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/heart.png' }
+        ];
 
-<script>
-    function displayHero() {
-        let herolist = ["Abaddon", "Alchemist", "Ancient Apparition", "Anti-Mage", "Arc Warden", "Axe", "Bane"];
-        let hero = herolist[Math.floor(Math.random() * herolist.length)];
-        let hero_temp = hero.toLowerCase().replace(/ /g, "_");
-        switch(hero_temp) {
-            case "anti-mage": hero_temp = "antimage"; break;
-            case "centaur_warrunner": hero_temp = "centaur"; break;
-            case "clockwerk": hero_temp = "rattletrap"; break;
-            case "doom": hero_temp = "doom_bringer"; break;
-            case "io": hero_temp = "wisp"; break;
-            case "lifestealer": hero_temp = "life_stealer"; break;
-            case "magnus": hero_temp = "magnataur"; break;
-            case "nature's_prophet": hero_temp = "furion"; break;
-            case "necrophos": hero_temp = "necrolyte"; break;
-            case "outworld_destroyer": hero_temp = "obsidian_destroyer"; break;
-            case "queen_of_pain": hero_temp = "queenofpain"; break;
-            case "shadow_fiend": hero_temp = "nevermore"; break;
-            case "timbersaw": hero_temp = "shredder"; break;
-            case "treant_protector": hero_temp = "treant"; break;
-            case "underlord": hero_temp = "abyssal_underlord"; break;
-            case "vengeful_spirit": hero_temp = "vengefulspirit"; break;
-            case "windranger": hero_temp = "windrunner"; break;
-            case "wraith_king": hero_temp = "skeleton_king"; break;
-            case "zeus": hero_temp = "zuus"; break;
-        }
-        $("#hero-img").attr("src", `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${hero_temp}.png`);
-        $("#hero-name").text(hero);
-        $('#hero-wrapper').show();
-    }
+        function displayArtifacts() {
+            // Сначала очищаем контейнер артефактов
+            const container = document.getElementById('artifact-container');
+            container.innerHTML = "";
 
-    const items = [
-        { name: 'Abyssal Blade', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/abyssal_blade.png' },
-        { name: 'Aghanim\'s Scepter', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aghanims_scepter.png' },
-        { name: 'Black King Bar', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png' },
-        { name: 'Butterfly', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/butterfly.png' },
-        { name: 'Desolator', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/desolator.png' },
-        { name: 'Divine Rapier', img: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/divine_rapier.png' }
-        // Добавь другие предметы по тому же принципу
-    ];
+            // Массив для хранения случайных артефактов
+            const selectedItems = [];
+            
+            // Выбираем 6 случайных артефактов
+            while (selectedItems.length < 6) {
+                const randomIndex = Math.floor(Math.random() * items.length);
+                const item = items[randomIndex];
 
-    function displayItems() {
-        const selectedItems = [];
-        while (selectedItems.length < 6) {
-            const randomIndex = Math.floor(Math.random() * items.length);
-            const item = items[randomIndex];
-            if (!selectedItems.includes(item)) {
-                selectedItems.push(item);
+                // Проверяем, чтобы артефакты не повторялись
+                if (!selectedItems.includes(item)) {
+                    selectedItems.push(item);
+                }
             }
-        }
-        
-        const container = document.getElementById('items-container');
-        container.innerHTML = selectedItems.map(item => 
-            `<div class="item">
-                <img src="${item.img}" alt="${item.name}" />
-                <p>${item.name}</p>
-            </div>`
-        ).join('');
-    }
-</script>
 
+            // Добавляем артефакты в контейнер
+            selectedItems.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('artifact');
+                itemElement.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}">
+                    <p>${item.name}</p>
+                `;
+                container.appendChild(itemElement);
+            });
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </body>
 </html>
