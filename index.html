@@ -51,11 +51,7 @@
         $('#hero-wrapper').show();
     }
 
-    const items = [
-        { name: 'Abyssal Blade', img: 'path/to/abyssal_blade.png' },
-        { name: 'Aghanim\'s Scepter', img: 'path/to/aghs_scepter.png' },
-        // Добавь остальные артефакты с ссылками на их изображения
-    ];
+    const items = ["Abyssal Blade", "Aghanim's Scepter", "Black King Bar", "Butterfly", "Daedalus", "Desolator"]; // добавьте остальные артефакты
 
     function displayItems() {
         const selectedItems = [];
@@ -68,12 +64,13 @@
         }
         
         const container = document.getElementById('items-container');
-        container.innerHTML = selectedItems.map(item => 
-            `<div class="item">
-                <img src="${item.img}" alt="${item.name}" />
-                <p>${item.name}</p>
-            </div>`
-        ).join('');
+        container.innerHTML = selectedItems.map(item => {
+            const item_temp = item.toLowerCase().replace(/ /g, "_");
+            return `<div class="item">
+                        <img src="https://cdn.yourhost.com/path/to/items/${item_temp}.png" alt="${item}" />
+                        <p>${item}</p>
+                    </div>`;
+        }).join('');
     }
 </script>
 
