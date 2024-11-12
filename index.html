@@ -67,7 +67,7 @@
         container.innerHTML = selectedItems.map(item => {
             const item_temp = item.toLowerCase().replace(/ /g, "_");
             return `<div class="item">
-                        <img src="https://cdn.yourhost.com/path/to/items/${item_temp}.png" alt="${item}" />
+                        <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/${item_temp}.png" alt="${item}" />
                         <p>${item}</p>
                     </div>`;
         }).join('');
